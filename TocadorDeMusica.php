@@ -7,6 +7,7 @@ class TocadorDeMusica {
     public function __construct() {
         $this->musicas = new SplDoublyLinkedList();
         $this->historico = new SplStack();
+        $this->filaDeDownloads = new SplQueue();
         $this->musicas->rewind();
     }    
 
@@ -73,6 +74,22 @@ class TocadorDeMusica {
 
     public function removerMusicaDoFinalDaPlaylist() {
         $this->musicas->pop();
+    }
+
+    public function baixarMusicas() {
+
+        if($this->musicas->count() > 0) {
+            for($this->musicas->rewind(); $this->musicas->valid() ; $this->musicas->next()) {
+                $this->filaDeDownloads->push($this->musicas->current());
+            }
+    
+            for($this->filaDeDownloads->rewind(); $this->filaDeDownloads->valid(); $this->filaDeDownloads->next()) {
+                echo "Baixando: " . $this->filaDeDownloads->current() . "...<br>";
+            }
+        } else {
+            echo "Nenhuma música encontrada para baixar.";
+        }
+
     }
 
 }
