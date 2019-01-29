@@ -96,12 +96,12 @@ class TocadorDeMusica {
 
     public function exibirMaisTocadas() {
         foreach($this->musicas as $musica) {
-            $this->maisTocadas->insert($musica->paraArray());
+            $this->maisTocadas->insert($musica);
         }
 
         while($this->maisTocadas->valid()) {
-            $nome = $this->maisTocadas->current()[0];
-            $vezesTocada = $this->maisTocadas->current()[1];
+            $nome = $this->maisTocadas->current()->getNome();
+            $vezesTocada = $this->maisTocadas->current()->getVezesTocada();
 
             echo $nome . " - " . $vezesTocada . "<br>";
 

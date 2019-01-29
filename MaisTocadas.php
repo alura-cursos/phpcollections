@@ -2,18 +2,17 @@
 
 class MaisTocadas extends SplHeap {
 
-    public function compare($par1,$par2) {
+    public function compare(Musica $musica1, Musica $musica2) {
 
-        if($par1[1] === $par2[1]) {
-            return 0;
-        }
+	if($musica1->getVezesTocada() === $musica2->getVezesTocada()) {
+		return 0;
+	}
 
-        if($par1[1] < $par2[1]) {
-            return -1;
-        } else {
-            return 1;
-        }
-
+	if($musica1->getVezesTocada() < $musica2->getVezesTocada()) {
+		return -1;
+	} else {
+		return 1;
+	}
     }
 
 }
