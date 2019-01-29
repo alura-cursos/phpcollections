@@ -14,12 +14,12 @@ class Musica {
         return $this->nome;
     }
 
+    public function getVezesTocada() {
+        return $this->vezesTocada;
+    }
+    
     public function tocou() {
         $this->vezesTocada++;
-    }
-
-    public function paraArray() {
-        return array($this->nome, $this->vezesTocada);
     }
 
 }
