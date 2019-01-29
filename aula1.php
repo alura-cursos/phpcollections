@@ -4,13 +4,13 @@ require 'TocadorDeMusica.php';
 
 $musicas = new SplFixedArray(2);
 
-$musicas[0] = "One Dance";
-$musicas[1] = "Closer";
+$musicas[0] = new Musica("One Dance");
+$musicas[1] = new Musica("Closer");
 
 $musicas->setSize(4);
 
-$musicas[2] = "rockstar";
-$musicas[3] = "Love Yourself";
+$musicas[2] = new Musica("rockstar");
+$musicas[3] = new Musica("Love Yourself");
 
 $tocador = new TocadorDeMusica();
 
