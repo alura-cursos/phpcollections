@@ -8,8 +8,8 @@ class TocadorDeMusica {
         $this->musicas = new SplDoublyLinkedList();
         $this->historico = new SplStack();
         $this->filaDeDownloads = new SplQueue();
-        $this->maisTocadas = new MaisTocadas();
         $this->musicas->rewind();
+        $this->ranking = new Ranking();
     }    
 
     public function adicionarMusicas(SplFixedArray $musicas) {
@@ -25,18 +25,17 @@ class TocadorDeMusica {
         if($this->musicas->count() === 0) {
             echo "Erro, nenhuma música no Tocador";
         } else {   
-            echo "Tocando música: " . $this->musicas->current()->getNome() . "<br>";
-            $this->historico->push($this->musicas->current()->getNome());
-            $this->musicas->current()->tocou();
+            $this->historico->push($this->musicas->current());
+            $this->musicas->current()->tocar();
         }
 
     }
 
     public function tocarUltimaMusicaTocada() {
-        echo "Tocando do histórico: " . $this->historico->pop()->getNome() . "<br>";
+        echo "Tocando do histórico: " . $this->historico->pop() . "<br>";
     }
 
-    public function adicionarMusica(Musica $musica) {
+    public function adicionarMusica($musica) {
         $this->musicas->push($musica);
     }
 
@@ -58,7 +57,7 @@ class TocadorDeMusica {
 
     public function exibirMusicas() {
         for($this->musicas->rewind() ; $this->musicas->valid() ; $this->musicas->next()) {
-            echo "Música: " . $this->musicas->current()->getNome() . "<br>";
+            echo "Música: " . $this->musicas->current() . "<br>";
         }
     }
 
@@ -66,7 +65,7 @@ class TocadorDeMusica {
         echo "Existem " . $this->musicas->count() . " músicas no tocador.";
     }
 
-    public function adicionarMusicaNoComecoDaPlaylist(Musica $musica) {
+    public function adicionarMusicaNoComecoDaPlaylist($musica) {
         $this->musicas->unshift($musica);
     }
 
@@ -86,7 +85,7 @@ class TocadorDeMusica {
             }
     
             for($this->filaDeDownloads->rewind(); $this->filaDeDownloads->valid(); $this->filaDeDownloads->next()) {
-                echo "Baixando: " . $this->filaDeDownloads->current()->getNome() . "...<br>";
+                echo "Baixando: " . $this->filaDeDownloads->current() . "...<br>";
             }
         } else {
             echo "Nenhuma música encontrada para baixar.";
@@ -94,20 +93,14 @@ class TocadorDeMusica {
 
     }
 
-    public function exibirMaisTocadas() {
+    public function exibirRanking() {
         foreach($this->musicas as $musica) {
-            $this->maisTocadas->insert($musica);
+            $this->ranking->insert($musica);
         }
 
-        while($this->maisTocadas->valid()) {
-            $nome = $this->maisTocadas->current()->getNome();
-            $vezesTocada = $this->maisTocadas->current()->getVezesTocada();
-
-            echo $nome . " - " . $vezesTocada . "<br>";
-
-            $this->maisTocadas->next();
+        foreach($this->ranking as $musica) {
+            echo $musica->getNome() . ' - ' . $musica->getVezesTocada() . "<br>";
         }
-        
     }
 
 }

@@ -17,9 +17,14 @@ class Musica {
     public function getVezesTocada() {
         return $this->vezesTocada;
     }
-    
-    public function tocou() {
+
+    public function tocar() {
         $this->vezesTocada++;
+        echo "Tocando música: " . $this->getNome() . "<br>";
+    }
+
+    public function __toString() {
+        return $this->nome;
     }
 
 }
